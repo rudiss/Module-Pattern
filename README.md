@@ -1,10 +1,12 @@
 # Module-Pattern
 
-O Module Pattern é muito utilizado porque ele permite organizar melhor o código, sem expor variáveis globais de modo promíscuo. Como ainda não temos uma sintaxe de módulos do próprio JavaScript, usamos os módulos para garantir que o escopo de variáveis seja fechado, além de simular a privacidade de atributos e funções
+O Module Pattern é muito utilizado porque ele permite organizar melhor o código, sem expor variáveis globais de modo promíscuo. Como ainda não temos uma sintaxe de módulos do próprio JavaScript, usamos os módulos para garantir que o escopo de variáveis seja fechado, além de simular a privacidade de atributos e funções.
+
+Como o JavaScript ainda não possui módulos nativamente (embora isso provavelvemente entre na versão ECMAScript 6, também chamada de Harmony), este pattern é muito utilizado para simular módulos. Isso só é possível por causa do escopo local de variáveis de uma função, que permite isolar tudo o que é feito dentro da função.
 
 ##Anonymous Closures (Closures Anônimos)
 
-Anonymous Closures são o construto fundamental em Module Pattern que tornam tudo isso possível e são uma das melhores característica de JavaScript: é possível criar uma função anônima e executá-la imediatamente. Todo o código que é executado dentro da função esta no escopo do closure (algo como “fechamento”), o que proporciona privacidade e estado durante toda a vida da aplicação.
+Anonymous Closures são o construtor fundamental em Module Pattern que tornam tudo isso possível e são uma das melhores característica de JavaScript: é possível criar uma função anônima e executá-la imediatamente. Todo o código que é executado dentro da função esta no escopo do closure (algo como “fechamento”), o que proporciona privacidade e estado durante toda a vida da aplicação.
 
 ```javascript
 (function () {
@@ -17,7 +19,7 @@ Observe a ```()``` em torno da função anônima. Isto é requerido pela linguag
 
 ##Global Import
 
-JavaScript tem um recurso conhecido como implied globals (globals implícitas). Sempre que um nome é usado, o interpretador volta pela cadeia de escopo em busca de uma declaração de variável (var) para esse nome. Se nada for encontrado, a variável é assumida como global; se é usado em um assignmente, o global é criado se não existir. Isso significa que o uso ou a criação de variáveis ​​globais em um closure anônimo é fácil. Infelizmente, isso leva a código difícil de gerir, já que não é óbvio (para humanos) que as variáveis ​​são globais em um determinado arquivo.
+JavaScript tem um recurso conhecido como implied globals (globals implícitas). Sempre que um nome é usado, o interpretador volta pela cadeia de escopo em busca de uma declaração de variável ```(var)``` para esse nome. Se nada for encontrado, a variável é assumida como global; se é usado em um assignmente, o global é criado se não existir. Isso significa que o uso ou a criação de variáveis ​​globais em um closure anônimo é fácil. Infelizmente, isso leva a código difícil de gerir, já que não é óbvio (para humanos) que as variáveis ​​são globais em um determinado arquivo.
 
 
 ```javascript
@@ -50,7 +52,7 @@ var MODULE = (function () {
 
 #Padrões Avançados de Module Pattern
 
-Os Padrões de Module Pattern mostrados anteriormente são suficientes para muitos casos, mas é possível levar isso adiante e criar alguns construtos muito poderosos e extensíveis. Vamos a eles, um por um, continuando com o módulo ```MODULE```.
+Os Padrões de Module Pattern mostrados anteriormente são suficientes para muitos casos, mas é possível levar isso adiante e criar alguns construtors muito poderosos e extensíveis, continuando com o módulo ```MODULE```.
 
 ##Augmentation
 
@@ -94,3 +96,5 @@ MODULE.sub = (function () {
 Module Pattern é bom para performance, ele passa por minificação muito bem, o que faz com que o download seja mais rápido. Usar Loose Augmentation permite downloads paralelos, fáceis e sem bloqueios. O tempo de inicialização é, provavelmente, um pouco mais lento do que outros métodos, mas o custo-benefício vale a pena. Desempenho em tempo de execução não deve sofrer penalidades desde que globais sejam importados corretamente e, provavelmente, há aumento de velocidade em submódulos, encurtando a cadeia de referência com variáveis ​​locais.
 
 
+Fonte: Learning JavaScript Design Patterns
+https://addyosmani.com/resources/essentialjsdesignpatterns/book/#modulepatternjavascript
